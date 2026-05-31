@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <iomanip>  // для std::setprecision
+#include <iomanip>
 #include <string>
 #include <vector>
 #include <map>
@@ -65,7 +65,6 @@ std::string read_file_content(const std::string& filename) {
     return buffer.str();
 }
 
-// Подсчет количества вхождений слова в документе
 int count_word_in_document(const std::string& word, const std::string& document_name) {
     std::string content = read_file_content(document_name);
     if (content.empty()) return 0;
@@ -76,7 +75,6 @@ int count_word_in_document(const std::string& word, const std::string& document_
                          [&word](const std::string& w) { return w == word; });
 }
 
-// Подсчет общего количества слов в документе
 int count_total_words_in_document(const std::string& document_name) {
     std::string content = read_file_content(document_name);
     if (content.empty()) return 0;
@@ -85,7 +83,6 @@ int count_total_words_in_document(const std::string& document_name) {
     return words.size();
 }
 
-// Вычисление TF (Term Frequency)
 double calculate_tf(const std::string& word, const std::string& document_name) {
     int word_count = count_word_in_document(word, document_name);
     int total_words = count_total_words_in_document(document_name);
@@ -94,7 +91,6 @@ double calculate_tf(const std::string& word, const std::string& document_name) {
     return static_cast<double>(word_count) / total_words;
 }
 
-// Подсчет количества документов, содержащих слово
 int count_documents_with_word(const std::string& word, 
                               const std::vector<std::string>& file_list) {
     int count = 0;
@@ -108,7 +104,6 @@ int count_documents_with_word(const std::string& word,
     return count;
 }
 
-// Вычисление IDF (Inverse Document Frequency)
 double calculate_idf(const std::string& word, 
                      const std::vector<std::string>& file_list) {
     int total_docs = file_list.size();
@@ -118,7 +113,6 @@ double calculate_idf(const std::string& word,
     return std::log(static_cast<double>(total_docs) / docs_with_word);
 }
 
-// Вычисление TF-IDF
 double calculate_tf_idf(const std::string& word, 
                         const std::string& document_name,
                         const std::vector<std::string>& file_list) {
@@ -128,7 +122,6 @@ double calculate_tf_idf(const std::string& word,
     return tf * idf;
 }
 
-// Получение множества документов, содержащих слово
 std::set<std::string> get_documents_with_word(const std::string& word, 
                                                const std::vector<std::string>& file_list) {
     std::set<std::string> documents;
@@ -144,7 +137,6 @@ std::set<std::string> get_documents_with_word(const std::string& word,
     return documents;
 }
 
-// Обработка команды WORD
 void handle_word_command(const std::string& search_word, 
                          const std::vector<std::string>& file_list) {
     
@@ -172,7 +164,6 @@ void handle_word_command(const std::string& search_word,
     }
 }
 
-// Обработка команды WORD_IN_DOC
 void handle_word_in_doc_command(const std::string& search_word, 
                                 const std::string& document_name,
                                 const std::vector<std::string>& file_list) {
@@ -198,7 +189,6 @@ void handle_word_in_doc_command(const std::string& search_word,
     std::cout << "TF-IDF : " << tf_idf << std::endl;
 }
 
-// Обработка команды DOC
 void handle_doc_command(const std::string& document_name,
                         const std::vector<std::string>& file_list) {
     
@@ -253,7 +243,6 @@ void handle_doc_command(const std::string& document_name,
                   });
 }
 
-// Вычисление TF-IDF для слова во всех документах
 std::vector<std::pair<std::string, double>> get_word_tf_idf_scores(
     const std::string& word, 
     const std::vector<std::string>& file_list) {
@@ -270,7 +259,6 @@ std::vector<std::pair<std::string, double>> get_word_tf_idf_scores(
     return scores;
 }
 
-// Обработка команды QUERY
 void handle_query_command(const std::vector<std::string>& query_words,
                           const std::vector<std::string>& file_list) {
     
